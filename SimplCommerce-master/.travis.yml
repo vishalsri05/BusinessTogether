@@ -1,0 +1,27 @@
+language: csharp
+solution: SimplCommerce.sln
+
+matrix:
+  include:
+    - os: osx
+      dotnet: 1.0.0
+      mono: none
+      env: DOTNETCORE=1
+    - os: linux
+      dist: trusty
+      sudo: required
+      dotnet: 1.0.0
+      mono: none
+      env: DOTNETCORE=1
+
+branches:  
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+script:
+  - if [ -n "${DOTNETCORE}" ]; then dotnet restore && dotnet build ./SimplCommerce.sln; fi
